@@ -1,17 +1,15 @@
 package com.luxoft.bankapp.domain;
 
+import java.io.Serializable;
 import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.luxoft.bankapp.exceptions.ClientExistsException;
 import com.luxoft.bankapp.utils.ClientRegistrationListener;
 
-public class Bank {
+public class Bank implements Serializable{
 	
-	private final List<Client> clients = new ArrayList<Client>();
+	private final Set<Client> clients = new HashSet<>();
 	private final List<ClientRegistrationListener> listeners = new ArrayList<ClientRegistrationListener>();
 	
 	private int printedClients = 0;
@@ -51,11 +49,24 @@ public class Bank {
         }
     }
 	
-	public List<Client> getClients() {
-		return Collections.unmodifiableList(clients);
+	public Set<Client> getClients() {
+		return Collections.unmodifiableSet(clients);
 	}
-	
-	class PrintClientListener implements ClientRegistrationListener {
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Bank bank = (Bank) o;
+		return clients.equals(bank.clients);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(clients);
+	}
+
+	class PrintClientListener implements ClientRegistrationListener, Serializable {
 		@Override 
 		public void onClientAdded(Client client) {
 	        System.out.println("Client added: " + client.getName());
@@ -64,7 +75,7 @@ public class Bank {
 
 	}
 	
-	class EmailNotificationListener implements ClientRegistrationListener {
+	class EmailNotificationListener implements ClientRegistrationListener, Serializable {
 		@Override 
 		public void onClientAdded(Client client) {
 	        System.out.println("Notification email for client " + client.getName() + " to be sent");
@@ -72,7 +83,7 @@ public class Bank {
 	    }
 	}
 	
-	class DebugListener implements ClientRegistrationListener {
+	class DebugListener implements ClientRegistrationListener, Serializable {
         @Override 
         public void onClientAdded(Client client) {
             System.out.println("Client " + client.getName() + " added on: " + DateFormat.getDateInstance(DateFormat.FULL).format(new Date()));

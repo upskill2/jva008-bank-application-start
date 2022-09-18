@@ -12,16 +12,18 @@ import com.luxoft.bankapp.domain.SavingAccount;
 import com.luxoft.bankapp.exceptions.ClientExistsException;
 import com.luxoft.bankapp.service.BankService;
 
+import java.time.LocalDate;
+
 public class Test2 {
 	
 	@Test
 	public void testBank() throws ClientExistsException {
 		Bank bank = new Bank();
-		Client client1 = new Client("Smith John", Gender.MALE); 
+		Client client1 = new Client("Smith John", Gender.MALE, "Kyiv", LocalDate.of(2009,12,12));
 		client1.addAccount(new SavingAccount(1, 1000.0));
 		client1.addAccount(new CheckingAccount(2, 1000.0, 100.0));
 		
-		Client client2 = new Client("Smith Michelle", Gender.FEMALE); 
+		Client client2 = new Client("Smith Michelle", Gender.FEMALE, "Kyiv", LocalDate.of(2009,12,12));
 		client2.addAccount(new SavingAccount(3, 2000.0));
 		client2.addAccount(new CheckingAccount(4, 1500.0, 200.0));
 		

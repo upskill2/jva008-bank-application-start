@@ -1,0 +1,2 @@
+accounttype=c;balance=100;overdraft=50;name=Boss;gender=m;city=Zhytomyr;birthday=2022.09.26
+accounttype=s;balance=500;name=Gary;gender=f;city=Slupsk;birthday=2022.09.25

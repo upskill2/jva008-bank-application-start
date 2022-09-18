@@ -1,8 +1,12 @@
 package com.luxoft.bankapp.domain;
 
+import com.luxoft.bankapp.annotations.ActiveRecord;
+import com.luxoft.bankapp.annotations.ActiveRecordEntity;
 import com.luxoft.bankapp.exceptions.NotEnoughFundsException;
 
-public abstract class AbstractAccount implements Account {
+import java.io.Serializable;
+
+public abstract class AbstractAccount extends ActiveRecord implements Account, Serializable {
 	
 	private int id;
 	protected double balance;
@@ -72,5 +76,10 @@ public abstract class AbstractAccount implements Account {
 				", balance=" + balance +
 				'}';
 	}
+	@Override
+	public double getOverdraft() {
+		return 0;
+	}
+
 
 }

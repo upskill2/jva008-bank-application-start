@@ -9,4 +9,5 @@ public interface Account {
 	public double getBalance();
 	public double maximumAmountToWithdraw();
 	public double decimalValue();
+	public double getOverdraft();
 }
